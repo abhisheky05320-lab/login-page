@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #dfe6f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .box {
+      background-color: white;
+      width: 350px;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px gray;
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input[type=text], input[type=password] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      margin-bottom: 4px;
+      border: 1px solid gray;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .show {
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #2a6fdb;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #174a9c;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+      height: 16px;
+      margin-bottom: 8px;
+    }
+
+    #message {
+      text-align: center;
+      font-weight: bold;
+      font-size: 16px;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <h2>Login</h2>
+
+    <form onsubmit="return checkLogin()">
+
+      <label>Email</label>
+      <input type="text" id="email">
+      <div class="error" id="emailErr"></div>
+
+      <label>Password</label>
+      <input type="password" id="password">
+      <div class="error" id="passErr"></div>
+
+      <div class="show">
+        <input type="checkbox" id="showPass" onclick="togglePassword()">
+        <label for="showPass" style="font-weight: normal;">Show password</label>
+      </div>
+
+      <button type="submit">Login</button>
+      <div id="message"></div>
+    </form>
+  </div>
+
+  <script>
+    var correctEmail = "student@gmail.com";
+    var correctPassword = "123456";
+
+    function togglePassword() {
+      var p = document.getElementById("password");
+      if (p.type == "password") {
+        p.type = "text";
+      } else {
+        p.type = "password";
+      }
+    }
+
+    function checkLogin() {
+      var email = document.getElementById("email").value.trim();
+      var password = document.getElementById("password").value;
+      var msg = document.getElementById("message");
+      var isValid = true;
+
+      document.getElementById("emailErr").innerHTML = "";
+      document.getElementById("passErr").innerHTML = "";
+      msg.innerHTML = "";
+
+      var emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,}$/;
+
+      if (email == "") {
+        document.getElementById("emailErr").innerHTML = "Please enter your email";
+        isValid = false;
+      } else if (!emailPattern.test(email)) {
+        document.getElementById("emailErr").innerHTML = "Email format is not correct";
+        isValid = false;
+      }
+
+      if (password == "") {
+        document.getElementById("passErr").innerHTML = "Please enter your password";
+        isValid = false;
+      }
+
+      if (isValid) {
+        if (email == correctEmail && password == correctPassword) {
+          msg.style.color = "green";
+          msg.innerHTML = "Login Successful!";
+        } else {
+          msg.style.color = "red";
+          msg.innerHTML = "Wrong email or password";
+        }
+      }
+
+      return false;
+    }
+  </script>
+</body>
+</html>
